@@ -48,7 +48,7 @@ const getPresignedUrl = (req, res) => {
   //const fileName = uuid.v4();
   const s3Params = {
     Bucket: S3_BUCKET,
-    Key: fileName + "." + fileType,
+    Key: fileName,
     Expires: 60 * 60,
     ContentType: "image/" + fileType,
     ACL: "public-read",
