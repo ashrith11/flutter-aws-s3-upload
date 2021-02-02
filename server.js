@@ -25,6 +25,18 @@ const s3 = new AWS.S3({
 
 const getPresignedUrl = (req, res) => {
   let fileType = req.body.fileType;
+  let fileName = req.body.fileName;
+  let isExtRequired = req.body.isextrequired;
+  let path = req.body.path;
+ 
+  
+  if (isExtRequired != "false"){
+      fileName = path +"/"+ fileName + fileType;
+  }else{
+      fileName = path +"/"+ fileName;
+  }
+    
+  
   if (fileType != ".jpg" && fileType != ".png" && fileType != ".jpeg") {
     return res
       .status(403)
@@ -33,7 +45,7 @@ const getPresignedUrl = (req, res) => {
 
   fileType = fileType.substring(1, fileType.length);
 
-  const fileName = uuid.v4();
+  //const fileName = uuid.v4();
   const s3Params = {
     Bucket: S3_BUCKET,
     Key: fileName + "." + fileType,
@@ -47,14 +59,15 @@ const getPresignedUrl = (req, res) => {
       console.log(err);
       return res.end();
     }
+    
     const returnData = {
       success: true,
       message: "Url generated",
       uploadUrl: data,
       downloadUrl:
-        `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}` + "." + fileType,
+        `https://${S3_BUCKET}.s3.amazonaws.com/` + fileName,
     };
-    return res.status(201).json(returnData);
+    return res.status(201).json(returnData);  
   });
 };
 
