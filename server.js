@@ -23,6 +23,15 @@ const s3 = new AWS.S3({
   //   useAccelerateEndpoint: true
 });
 
+const getPresignedUrl1 = (req, res) => {
+        const returnData1 = {
+      success: true,
+      message: "Url generated",
+    };
+    return res.status(200).json(returnData1);  
+  });
+};
+
 const getPresignedUrl = (req, res) => {
   let fileType = req.body.fileType;
   let fileName = req.body.fileName;
@@ -72,3 +81,4 @@ const getPresignedUrl = (req, res) => {
 };
 
 app.post("/generatePresignedUrl", (req, res) => getPresignedUrl(req, res));
+app.post("/", (req, res) => getPresignedUrl1(req, res));
