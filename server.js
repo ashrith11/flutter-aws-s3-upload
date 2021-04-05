@@ -36,12 +36,14 @@ const getPresignedUrl = (req, res) => {
   let fileName = req.body.fileName;
   let isExtRequired = req.body.isextrequired;
   let path = req.body.path;
+  let buck = S3_BUCKET;
  
   
   if (isExtRequired != "false"){
       fileName = path +"/"+ fileName + fileType;
   }else{
       fileName = path +"/"+ fileName;
+      buck = "feetapart-img";
   }
     
   
@@ -55,7 +57,7 @@ const getPresignedUrl = (req, res) => {
 
   //const fileName = uuid.v4();
   const s3Params = {
-    Bucket: S3_BUCKET,
+    Bucket: buck,
     Key: fileName,
     Expires: 60 * 60,
     ContentType: "image/" + fileType,
