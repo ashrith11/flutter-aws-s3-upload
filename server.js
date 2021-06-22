@@ -29,7 +29,7 @@ const getPresignedUrl1 = (req, res) => {
                       message: "Url generated",
     };
     return res.status(200).json(returnData1);  
-  });
+  };
 
 const getPresignedUrl = (req, res) => {
   let fileType = req.body.fileType;
@@ -82,4 +82,4 @@ const getPresignedUrl = (req, res) => {
 };
 
 app.post("/generatePresignedUrl", (req, res) => getPresignedUrl(req, res));
-app.post("/", (req, res) => getPresignedUrl1(req, res));
+app.get("/", (req, res) => getPresignedUrl1(req, res));
